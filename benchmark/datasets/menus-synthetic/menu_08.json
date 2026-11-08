@@ -1,0 +1,47 @@
+{
+  "restaurant_name": "Sushi Hana",
+  "items": [
+    {
+      "name": "Bruschetta",
+      "description": "Pão italiano, tomate e manjericão",
+      "price": 20.5,
+      "category": "Entradas"
+    },
+    {
+      "name": "Bolinho de Bacalhau",
+      "description": "Porção com 6 unidades",
+      "price": 28.5,
+      "category": "Entradas"
+    },
+    {
+      "name": "Dadinho de Tapioca",
+      "description": "Com geleia de pimenta",
+      "price": 31.99,
+      "category": "Entradas"
+    },
+    {
+      "name": "Smash Duplo",
+      "description": "Dois smash de 90 g e cheddar",
+      "price": 42.9,
+      "category": "Lanches"
+    },
+    {
+      "name": "X-Bacon",
+      "description": null,
+      "price": 30.5,
+      "category": "Lanches"
+    },
+    {
+      "name": "Pudim de Leite",
+      "description": null,
+      "price": 20.5,
+      "category": "Sobremesas"
+    },
+    {
+      "name": "Brigadeiro de Colher",
+      "description": null,
+      "price": 16.5,
+      "category": "Sobremesas"
+    }
+  ]
+}

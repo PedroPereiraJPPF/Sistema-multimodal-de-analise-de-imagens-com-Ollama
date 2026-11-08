@@ -1,0 +1,47 @@
+{
+  "restaurant_name": "Boteco do Zé",
+  "items": [
+    {
+      "name": "Cerveja Long Neck",
+      "description": null,
+      "price": 12,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Água Mineral",
+      "description": null,
+      "price": 6,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Portuguesa",
+      "description": "Presunto, ovo, ervilha e cebola",
+      "price": 54,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Margherita",
+      "description": "Molho, muçarela e manjericão",
+      "price": 62,
+      "category": "Pizzas"
+    },
+    {
+      "name": "X-Burger",
+      "description": "Pão, hambúrguer 150 g e queijo",
+      "price": 28,
+      "category": "Lanches"
+    },
+    {
+      "name": "Smash Duplo",
+      "description": "Dois smash de 90 g e cheddar",
+      "price": 39,
+      "category": "Lanches"
+    },
+    {
+      "name": "X-Bacon",
+      "description": null,
+      "price": 33.99,
+      "category": "Lanches"
+    }
+  ]
+}

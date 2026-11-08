@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Avaliação · Analisador de Imagens{% endblock %}
+{% block content %}
+<h2>Avaliação dos modelos</h2>
+<p class="muted">
+  <strong>JSON válido</strong>: respostas que passaram na validação do schema.
+  <strong>Precisão</strong>: fração de campos que o modelo acertou, medida nas análises que você revisou
+  (listas são comparadas item a item).
+  <strong>Prompt</strong>: versão do prompt que gerou a análise.
+  <strong>Carga</strong>: tempo para subir o modelo na VRAM (alto = modelo estava descarregado).
+</p>
+
+{% if reports %}
+<div class="overflow-auto">
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Modelo</th><th>Tipo</th><th>Prompt</th><th>Análises</th><th>JSON válido</th>
+      <th>Tempo médio</th><th>Carga média</th><th>Revisadas</th><th>Precisão</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reports %}
+    <tr>
+      <td>{{ r.model }}</td>
+      <td>{{ preset_label(r.preset) }}</td>
+      <td>{{ r.prompt_version or "—" }}</td>
+      <td>{{ r.runs }}</td>
+      <td>{{ (r.valid_rate * 100) | round | int }}%</td>
+      <td>{{ (r.avg_duration_ms / 1000) | round(1) }} s</td>
+      <td>{{ (r.avg_load_ms / 1000) | round(1) }} s</td>
+      <td>{{ r.reviewed }}</td>
+      <td>{% if r.accuracy is not none %}{{ (r.accuracy * 100) | round | int }}%{% else %}—{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p>Ainda não há análises. <a href="/">Faça a primeira</a>.</p>
+{% endif %}
+{% endblock %}

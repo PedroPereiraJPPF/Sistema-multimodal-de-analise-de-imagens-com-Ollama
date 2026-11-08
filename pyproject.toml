@@ -1,0 +1,9 @@
+[project]
+name = "analisador-de-imagens"
+version = "0.1.0"
+description = "Análise multimodal de imagens com Ollama, saída JSON validada e avaliação de modelos"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

@@ -1,0 +1,35 @@
+{
+  "restaurant_name": "Sushi Hana",
+  "items": [
+    {
+      "name": "Smash Duplo",
+      "description": "Dois smash de 90 g e cheddar",
+      "price": 39.99,
+      "category": "Lanches"
+    },
+    {
+      "name": "X-Bacon",
+      "description": null,
+      "price": 36.5,
+      "category": "Lanches"
+    },
+    {
+      "name": "Calabresa",
+      "description": "Calabresa fatiada e cebola",
+      "price": 53,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Portuguesa",
+      "description": "Presunto, ovo, ervilha e cebola",
+      "price": 58.99,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Margherita",
+      "description": "Molho, muçarela e manjericão",
+      "price": 52,
+      "category": "Pizzas"
+    }
+  ]
+}

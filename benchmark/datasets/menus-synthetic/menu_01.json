@@ -1,0 +1,47 @@
+{
+  "restaurant_name": "Burger Brothers",
+  "items": [
+    {
+      "name": "Risoto de Cogumelos",
+      "description": "Arroz arbóreo e parmesão",
+      "price": 59,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Feijoada Completa",
+      "description": "Acompanha arroz, couve e farofa",
+      "price": 77.5,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "X-Burger",
+      "description": "Pão, hambúrguer 150 g e queijo",
+      "price": 30,
+      "category": "Lanches"
+    },
+    {
+      "name": "X-Bacon",
+      "description": null,
+      "price": 31,
+      "category": "Lanches"
+    },
+    {
+      "name": "Bruschetta",
+      "description": "Pão italiano, tomate e manjericão",
+      "price": 21,
+      "category": "Entradas"
+    },
+    {
+      "name": "Bolinho de Bacalhau",
+      "description": "Porção com 6 unidades",
+      "price": 40,
+      "category": "Entradas"
+    },
+    {
+      "name": "Dadinho de Tapioca",
+      "description": "Com geleia de pimenta",
+      "price": 25,
+      "category": "Entradas"
+    }
+  ]
+}

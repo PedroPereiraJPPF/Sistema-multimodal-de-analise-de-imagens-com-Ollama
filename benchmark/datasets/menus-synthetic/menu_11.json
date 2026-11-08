@@ -1,0 +1,59 @@
+{
+  "restaurant_name": "Sabor do Sertão",
+  "items": [
+    {
+      "name": "Parmegiana de Frango",
+      "description": "Com arroz e fritas",
+      "price": 53.5,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Feijoada Completa",
+      "description": "Acompanha arroz, couve e farofa",
+      "price": 59.5,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Risoto de Cogumelos",
+      "description": "Arroz arbóreo e parmesão",
+      "price": 70.99,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Quatro Queijos",
+      "description": null,
+      "price": 59.9,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Calabresa",
+      "description": "Calabresa fatiada e cebola",
+      "price": 42.9,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Margherita",
+      "description": "Molho, muçarela e manjericão",
+      "price": 42.9,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Cerveja Long Neck",
+      "description": null,
+      "price": 13.9,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Água Mineral",
+      "description": null,
+      "price": 6,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Refrigerante Lata",
+      "description": "350 ml",
+      "price": 6.5,
+      "category": "Bebidas"
+    }
+  ]
+}

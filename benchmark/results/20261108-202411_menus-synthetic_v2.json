@@ -1,0 +1,787 @@
+{
+  "date": "2026-11-08 20:24",
+  "dataset": "menus-synthetic",
+  "preset": "menu",
+  "prompt_version": "v2",
+  "cases": 12,
+  "reports": [
+    {
+      "model": "qwen3.5:4b",
+      "overall": 1.0,
+      "valid_rate": 1,
+      "avg_inference_ms": 12618.833333333334,
+      "fields": {
+        "items": 1.0,
+        "items.category": 1.0,
+        "items.description": 1.0,
+        "items.name": 1.0,
+        "items.price": 1.0,
+        "restaurant_name": 1.0
+      },
+      "cases": [
+        {
+          "image": "menu_01.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 12952,
+          "output_tokens": 408,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Burger Brothers",
+            "items": [
+              {
+                "name": "Risoto de Cogumelos",
+                "description": "Arroz arbóreo e parmesão",
+                "price": 59.0,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Feijoada Completa",
+                "description": "Acompanha arroz, couve e farofa",
+                "price": 77.5,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "X-Burger",
+                "description": "Pão, hambúrguer 150 g e queijo",
+                "price": 30.0,
+                "category": "LANCHES"
+              },
+              {
+                "name": "X-Bacon",
+                "description": null,
+                "price": 31.0,
+                "category": "LANCHES"
+              },
+              {
+                "name": "Bruschetta",
+                "description": "Pão italiano, tomate e manjericão",
+                "price": 21.0,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Bolinho de Bacalhau",
+                "description": "Porção com 6 unidades",
+                "price": 40.0,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Dadinho de Tapioca",
+                "description": "Com geleia de pimenta",
+                "price": 25.0,
+                "category": "ENTRADAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_02.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 7516,
+          "output_tokens": 238,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Boteco do Zé",
+            "items": [
+              {
+                "name": "Bolinho de Bacalhau",
+                "description": "Porção com 6 unidades",
+                "price": 45.0,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Bruschetta",
+                "description": "Pão italiano, tomate e manjericão",
+                "price": 27.0,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Petit Gâteau",
+                "description": "Com sorvete de creme",
+                "price": 29.99,
+                "category": "SOBREMESAS"
+              },
+              {
+                "name": "Brigadeiro de Colher",
+                "description": null,
+                "price": 17.9,
+                "category": "SOBREMESAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_03.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 13717,
+          "output_tokens": 443,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Boteco do Zé",
+            "items": [
+              {
+                "name": "Refrigerante Lata",
+                "description": "350 ml",
+                "price": 9.5,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Água Mineral",
+                "description": null,
+                "price": 6.5,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "X-Bacon",
+                "description": null,
+                "price": 40.9,
+                "category": "LANCHES"
+              },
+              {
+                "name": "X-Burger",
+                "description": "Pão, hambúrguer 150 g e queijo",
+                "price": 29.9,
+                "category": "LANCHES"
+              },
+              {
+                "name": "Smash Duplo",
+                "description": "Dois smash de 90 g e cheddar",
+                "price": 41.99,
+                "category": "LANCHES"
+              },
+              {
+                "name": "Margherita",
+                "description": "Molho, muçarela e manjericão",
+                "price": 57.0,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Portuguesa",
+                "description": "Presunto, ovo, ervilha e cebola",
+                "price": 47.9,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Calabresa",
+                "description": "Calabresa fatiada e cebola",
+                "price": 60.99,
+                "category": "PIZZAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_04.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 13124,
+          "output_tokens": 406,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Cantina da Nonna",
+            "items": [
+              {
+                "name": "Pastel de Carne",
+                "description": null,
+                "price": 14.99,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Dadinho de Tapioca",
+                "description": "Com geleia de pimenta",
+                "price": 23.5,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Escondidinho de Carne Seca",
+                "description": null,
+                "price": 49.9,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Moqueca de Peixe",
+                "description": "Serve duas pessoas",
+                "price": 134.99,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Feijoada Completa",
+                "description": "Acompanha arroz, couve e farofa",
+                "price": 67.99,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Calabresa",
+                "description": "Calabresa fatiada e cebola",
+                "price": 45.5,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Margherita",
+                "description": "Molho, muçarela e manjericão",
+                "price": 49.5,
+                "category": "PIZZAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_05.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 14215,
+          "output_tokens": 459,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Sabor do Sertão",
+            "items": [
+              {
+                "name": "Risoto de Cogumelos",
+                "description": "Arroz arbóreo e parmesão",
+                "price": 60.99,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Escondidinho de Carne Seca",
+                "description": null,
+                "price": 39.99,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Parmegiana de Frango",
+                "description": "Com arroz e fritas",
+                "price": 58.99,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Pudim de Leite",
+                "description": null,
+                "price": 15.99,
+                "category": "SOBREMESAS"
+              },
+              {
+                "name": "Brigadeiro de Colher",
+                "description": null,
+                "price": 12.0,
+                "category": "SOBREMESAS"
+              },
+              {
+                "name": "Bruschetta",
+                "description": "Pão italiano, tomate e manjericão",
+                "price": 27.5,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Dadinho de Tapioca",
+                "description": "Com geleia de pimenta",
+                "price": 30.0,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Bolinho de Bacalhau",
+                "description": "Porção com 6 unidades",
+                "price": 39.0,
+                "category": "ENTRADAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_06.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 13547,
+          "output_tokens": 431,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Tempero Mineiro",
+            "items": [
+              {
+                "name": "Dadinho de Tapioca",
+                "description": "Com geleia de pimenta",
+                "price": 23.5,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Pastel de Carne",
+                "description": null,
+                "price": 9.9,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Bolinho de Bacalhau",
+                "description": "Porção com 6 unidades",
+                "price": 36.99,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Refrigerante Lata",
+                "description": "350 ml",
+                "price": 8.5,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Cerveja Long Neck",
+                "description": null,
+                "price": 15.0,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Smash Duplo",
+                "description": "Dois smash de 90 g e cheddar",
+                "price": 40.9,
+                "category": "LANCHES"
+              },
+              {
+                "name": "X-Burger",
+                "description": "Pão, hambúrguer 150 g e queijo",
+                "price": 26.9,
+                "category": "LANCHES"
+              },
+              {
+                "name": "X-Bacon",
+                "description": null,
+                "price": 40.5,
+                "category": "LANCHES"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_07.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 13955,
+          "output_tokens": 444,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Sabor do Sertão",
+            "items": [
+              {
+                "name": "Água Mineral",
+                "description": null,
+                "price": 4.9,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Cerveja Long Neck",
+                "description": null,
+                "price": 13.9,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Refrigerante Lata",
+                "description": "350 ml",
+                "price": 7.9,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Moqueca de Peixe",
+                "description": "Serve duas pessoas",
+                "price": 103.0,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Risoto de Cogumelos",
+                "description": "Arroz arbóreo e parmesão",
+                "price": 55.99,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Feijoada Completa",
+                "description": "Acompanha arroz, couve e farofa",
+                "price": 57.9,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Petit Gâteau",
+                "description": "Com sorvete de creme",
+                "price": 31.9,
+                "category": "SOBREMESAS"
+              },
+              {
+                "name": "Pudim de Leite",
+                "description": null,
+                "price": 22.0,
+                "category": "SOBREMESAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_08.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 12450,
+          "output_tokens": 385,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Sushi Hana",
+            "items": [
+              {
+                "name": "Bruschetta",
+                "description": "Pão italiano, tomate e manjericão",
+                "price": 20.5,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Bolinho de Bacalhau",
+                "description": "Porção com 6 unidades",
+                "price": 28.5,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Dadinho de Tapioca",
+                "description": "Com geleia de pimenta",
+                "price": 31.99,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Smash Duplo",
+                "description": "Dois smash de 90 g e cheddar",
+                "price": 42.9,
+                "category": "LANCHES"
+              },
+              {
+                "name": "X-Bacon",
+                "description": null,
+                "price": 30.5,
+                "category": "LANCHES"
+              },
+              {
+                "name": "Pudim de Leite",
+                "description": null,
+                "price": 20.5,
+                "category": "SOBREMESAS"
+              },
+              {
+                "name": "Brigadeiro de Colher",
+                "description": null,
+                "price": 16.5,
+                "category": "SOBREMESAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_09.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 12467,
+          "output_tokens": 393,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Sushi Hana",
+            "items": [
+              {
+                "name": "Risoto de Cogumelos",
+                "description": "Arroz arbóreo e parmesão",
+                "price": 52.5,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Escondidinho de Carne Seca",
+                "description": null,
+                "price": 52.0,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Moqueca de Peixe",
+                "description": "Serve duas pessoas",
+                "price": 117.5,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Pastel de Carne",
+                "description": null,
+                "price": 10.99,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Bruschetta",
+                "description": "Pão italiano, tomate e manjericão",
+                "price": 27.0,
+                "category": "ENTRADAS"
+              },
+              {
+                "name": "Quatro Queijos",
+                "description": null,
+                "price": 64.99,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Portuguesa",
+                "description": "Presunto, ovo, ervilha e cebola",
+                "price": 49.0,
+                "category": "PIZZAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_10.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 9461,
+          "output_tokens": 291,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Sushi Hana",
+            "items": [
+              {
+                "name": "Smash Duplo",
+                "description": "Dois smash de 90 g e cheddar",
+                "price": 39.99,
+                "category": "LANCHES"
+              },
+              {
+                "name": "X-Bacon",
+                "description": null,
+                "price": 36.5,
+                "category": "LANCHES"
+              },
+              {
+                "name": "Calabresa",
+                "description": "Calabresa fatiada e cebola",
+                "price": 53.0,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Portuguesa",
+                "description": "Presunto, ovo, ervilha e cebola",
+                "price": 58.99,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Margherita",
+                "description": "Molho, muçarela e manjericão",
+                "price": 52.0,
+                "category": "PIZZAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_11.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 15722,
+          "output_tokens": 499,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Sabor do Sertão",
+            "items": [
+              {
+                "name": "Parmegiana de Frango",
+                "description": "Com arroz e fritas",
+                "price": 53.5,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Feijoada Completa",
+                "description": "Acompanha arroz, couve e farofa",
+                "price": 59.5,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Risoto de Cogumelos",
+                "description": "Arroz arbóreo e parmesão",
+                "price": 70.99,
+                "category": "PRATOS PRINCIPAIS"
+              },
+              {
+                "name": "Quatro Queijos",
+                "description": null,
+                "price": 59.9,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Calabresa",
+                "description": "Calabresa fatiada e cebola",
+                "price": 42.9,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Margherita",
+                "description": "Molho, muçarela e manjericão",
+                "price": 42.9,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Cerveja Long Neck",
+                "description": null,
+                "price": 13.9,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Água Mineral",
+                "description": null,
+                "price": 6.0,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Refrigerante Lata",
+                "description": "350 ml",
+                "price": 6.5,
+                "category": "BEBIDAS"
+              }
+            ]
+          }
+        },
+        {
+          "image": "menu_12.png",
+          "valid": true,
+          "error": null,
+          "inference_ms": 12300,
+          "output_tokens": 385,
+          "overall": 1.0,
+          "scores": {
+            "restaurant_name": 1.0,
+            "items": 1.0,
+            "items.category": 1.0,
+            "items.description": 1.0,
+            "items.name": 1.0,
+            "items.price": 1.0
+          },
+          "result": {
+            "restaurant_name": "Boteco do Zé",
+            "items": [
+              {
+                "name": "Cerveja Long Neck",
+                "description": null,
+                "price": 12.0,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Água Mineral",
+                "description": null,
+                "price": 6.0,
+                "category": "BEBIDAS"
+              },
+              {
+                "name": "Portuguesa",
+                "description": "Presunto, ovo, ervilha e cebola",
+                "price": 54.0,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "Margherita",
+                "description": "Molho, muçarela e manjericão",
+                "price": 62.0,
+                "category": "PIZZAS"
+              },
+              {
+                "name": "X-Burger",
+                "description": "Pão, hambúrguer 150 g e queijo",
+                "price": 28.0,
+                "category": "LANCHES"
+              },
+              {
+                "name": "Smash Duplo",
+                "description": "Dois smash de 90 g e cheddar",
+                "price": 39.0,
+                "category": "LANCHES"
+              },
+              {
+                "name": "X-Bacon",
+                "description": null,
+                "price": 33.99,
+                "category": "LANCHES"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

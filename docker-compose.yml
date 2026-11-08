@@ -1,0 +1,36 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://analyzer:analyzer@db:5432/analyzer
+      # Ollama runs on the host machine (outside Docker), using the host GPU.
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      DEFAULT_MODEL: ${DEFAULT_MODEL:-qwen3.5:4b}
+      UPLOAD_DIR: /code/data/uploads
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # needed on Linux; harmless elsewhere
+    volumes:
+      - uploads:/code/data/uploads
+      - ./benchmark:/code/benchmark  # datasets and reports live on the host
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: analyzer
+      POSTGRES_PASSWORD: analyzer
+      POSTGRES_DB: analyzer
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analyzer"]
+      interval: 3s
+      retries: 10
+
+volumes:
+  uploads:
+  pgdata:

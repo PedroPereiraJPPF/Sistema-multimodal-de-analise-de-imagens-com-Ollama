@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Nova análise</h2>
+
+{% if error %}<article class="error">{{ error }}</article>{% endif %}
+
+{% if not models %}
+<article class="warning">
+  Nenhum modelo de visão encontrado no Ollama. Verifique se ele está rodando
+  e instale um modelo, por exemplo: <code>ollama pull {{ default_model }}</code>.
+</article>
+{% endif %}
+
+<form action="/analyze" method="post" enctype="multipart/form-data" id="analyze-form">
+  <label>
+    Imagem
+    <input type="file" name="image" accept="image/*" required>
+  </label>
+
+  <label>
+    O que extrair?
+    <select name="preset" id="preset">
+      {% for key, label in presets.items() %}
+      <option value="{{ key }}">{{ label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label id="question-box" hidden>
+    Sua pergunta sobre a imagem
+    <textarea name="fields" rows="3" disabled
+              placeholder="Ex.: Quais blocos aparecem na imagem? Diga o nome de cada um."></textarea>
+  </label>
+
+  <label id="custom-box" hidden>
+    Campos a extrair — um por linha, no formato <code>nome: descrição</code>
+    <textarea name="fields" rows="4" disabled
+              placeholder="placa: placa do veículo&#10;cor: cor predominante do veículo"></textarea>
+    <small>Use nomes curtos. Para perguntar algo sobre a imagem, escolha "Pergunta livre".</small>
+  </label>
+
+  <label>
+    Contexto adicional (opcional)
+    <input type="text" name="context" placeholder="Ex.: foto da despensa da cozinha">
+  </label>
+
+  {% if models %}
+  <fieldset>
+    <legend>Modelos (marque mais de um para comparar)</legend>
+    {% for model in models %}
+    <label>
+      <input type="checkbox" name="models" value="{{ model }}"
+             {% if model == default_model or (loop.first and default_model not in models) %}checked{% endif %}>
+      {{ model }}
+    </label>
+    {% endfor %}
+  </fieldset>
+  {% endif %}
+
+  <button type="submit" id="submit">Analisar</button>
+</form>
+
+<script>
+  const preset = document.getElementById("preset");
+  // Show the text box that matches the chosen type; only the visible one is submitted.
+  const boxes = {
+    "{{ question_key }}": document.getElementById("question-box"),
+    "{{ custom_key }}": document.getElementById("custom-box"),
+  };
+  const toggleFields = () => {
+    for (const [key, box] of Object.entries(boxes)) {
+      const active = preset.value === key;
+      box.hidden = !active;
+      const textarea = box.querySelector("textarea");
+      textarea.disabled = !active;
+      textarea.required = active;
+    }
+  };
+  preset.addEventListener("change", toggleFields);
+  toggleFields();
+
+  document.getElementById("analyze-form").addEventListener("submit", () => {
+    const button = document.getElementById("submit");
+    button.setAttribute("aria-busy", "true");
+    button.textContent = "Analisando… (pode levar alguns segundos)";
+  });
+</script>
+{% endblock %}

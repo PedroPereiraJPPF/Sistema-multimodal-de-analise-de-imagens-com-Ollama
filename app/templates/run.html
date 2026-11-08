@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}{{ first.image_name }} · Analisador de Imagens{% endblock %}
+{% block content %}
+<hgroup>
+  <h2>{{ first.image_name }}</h2>
+  <p>{{ preset_label(first.preset) }} · {{ first.created_at.strftime("%d/%m/%Y %H:%M") }}</p>
+</hgroup>
+
+{% if first.fields_spec or first.context %}
+<dl class="request">
+  {% if first.fields_spec %}
+  <dt>{% if first.preset == QUESTION_KEY %}Pergunta{% else %}Campos pedidos{% endif %}</dt>
+  <dd>{{ first.fields_spec }}</dd>
+  {% endif %}
+  {% if first.context %}<dt>Contexto</dt><dd>{{ first.context }}</dd>{% endif %}
+</dl>
+{% endif %}
+
+{% if error %}<article class="error">{{ error }}</article>{% endif %}
+
+<div class="run">
+  <figure><img src="/uploads/{{ first.image_file }}" alt="{{ first.image_name }}"></figure>
+
+  <div>
+    {% for card in cards %}
+    {% set a = card.analysis %}
+    <article id="analysis-{{ a.id }}">
+      <header>
+        <strong>{{ a.model }}</strong>
+        <small>
+          {{ (a.duration_ms / 1000) | round(1) }} s
+          {% if a.load_ms > 500 %}(carga do modelo {{ (a.load_ms / 1000) | round(1) }} s){% endif %}
+          · {{ a.output_tokens }} tokens
+          {% if a.prompt_version %}· prompt {{ a.prompt_version }}{% endif %}
+        </small>
+      </header>
+
+      {% if a.error %}
+        <p class="error">{{ a.error }}</p>
+      {% else %}
+        <table>
+          {% for key, value in a.result.items() %}
+          <tr {% if key in card.changed %}class="changed" title="Corrigido na revisão"{% endif %}>
+            <th>{{ key }}</th>
+            <td>
+              {% if value is mapping or (value is iterable and value is not string) %}
+                <pre>{{ value | pretty }}</pre>
+              {% elif value is none %}<span class="muted">—</span>
+              {% else %}{{ value }}{% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
+
+      <details {% if a.error and not a.corrected %}open{% endif %}>
+        <summary>
+          {% if card.accuracy is not none %}
+            Revisado · precisão {{ (card.accuracy * 100) | round | int }}%
+            {% if card.changed %}· corrigidos: {{ card.changed | join(", ") }}{% endif %}
+          {% else %}
+            Revisar / corrigir
+          {% endif %}
+        </summary>
+        <form action="/analyses/{{ a.id }}/review" method="post">
+          <textarea name="corrected" rows="12" class="mono">{{ card.editable | pretty }}</textarea>
+          <button type="submit" class="secondary">Salvar revisão</button>
+        </form>
+      </details>
+    </article>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

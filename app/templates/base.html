@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Analisador de Imagens{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul><li><a href="/" class="brand">🔎 Analisador de Imagens</a></li></ul>
+      <ul>
+        <li><a href="/">Nova análise</a></li>
+        <li><a href="/history">Histórico</a></li>
+        <li><a href="/metrics">Avaliação</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

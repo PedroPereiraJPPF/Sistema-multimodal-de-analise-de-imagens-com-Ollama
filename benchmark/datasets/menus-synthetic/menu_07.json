@@ -1,0 +1,53 @@
+{
+  "restaurant_name": "Sabor do Sertão",
+  "items": [
+    {
+      "name": "Água Mineral",
+      "description": null,
+      "price": 4.9,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Cerveja Long Neck",
+      "description": null,
+      "price": 13.9,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Refrigerante Lata",
+      "description": "350 ml",
+      "price": 7.9,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Moqueca de Peixe",
+      "description": "Serve duas pessoas",
+      "price": 103,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Risoto de Cogumelos",
+      "description": "Arroz arbóreo e parmesão",
+      "price": 55.99,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Feijoada Completa",
+      "description": "Acompanha arroz, couve e farofa",
+      "price": 57.9,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Petit Gâteau",
+      "description": "Com sorvete de creme",
+      "price": 31.9,
+      "category": "Sobremesas"
+    },
+    {
+      "name": "Pudim de Leite",
+      "description": null,
+      "price": 22,
+      "category": "Sobremesas"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "restaurant_name": "Sushi Hana",
+  "items": [
+    {
+      "name": "Risoto de Cogumelos",
+      "description": "Arroz arbóreo e parmesão",
+      "price": 52.5,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Escondidinho de Carne Seca",
+      "description": null,
+      "price": 52,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Moqueca de Peixe",
+      "description": "Serve duas pessoas",
+      "price": 117.5,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Pastel de Carne",
+      "description": null,
+      "price": 10.99,
+      "category": "Entradas"
+    },
+    {
+      "name": "Bruschetta",
+      "description": "Pão italiano, tomate e manjericão",
+      "price": 27,
+      "category": "Entradas"
+    },
+    {
+      "name": "Quatro Queijos",
+      "description": null,
+      "price": 64.99,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Portuguesa",
+      "description": "Presunto, ovo, ervilha e cebola",
+      "price": 49,
+      "category": "Pizzas"
+    }
+  ]
+}

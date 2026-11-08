@@ -1,0 +1,27 @@
+.brand { font-weight: 700; }
+.muted { color: var(--pico-muted-color); }
+.mono { font-family: var(--pico-font-family-monospace); font-size: 0.85rem; }
+
+article.warning, article.error { background: rgba(217, 53, 38, 0.08); border: 1px solid rgba(217, 53, 38, 0.35); }
+p.error { color: #d93526; white-space: pre-wrap; }
+
+.run { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; }
+.run figure { position: sticky; top: 1rem; margin: 0; }
+.run img { border-radius: var(--pico-border-radius); width: 100%; }
+@media (max-width: 768px) { .run { grid-template-columns: 1fr; } .run figure { position: static; } }
+
+/* Fixed layout + wrapping: a long value or field name can never squeeze the other column. */
+.run table { table-layout: fixed; }
+.run table th { width: 30%; font-family: var(--pico-font-family-monospace); font-size: 0.85rem; }
+.run table th, .run table td { overflow-wrap: anywhere; vertical-align: top; }
+.run pre { margin: 0; padding: 0.5rem; font-size: 0.8rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.request { margin-bottom: 1.5rem; }
+.request dt { font-weight: 600; }
+.request dd { margin: 0 0 0.5rem; white-space: pre-wrap; color: var(--pico-muted-color); }
+tr.changed td, tr.changed th { background: rgba(217, 53, 38, 0.08); }
+
+.filters { display: grid; gap: 0.5rem; grid-template-columns: 2fr 1fr 1fr auto; }
+@media (max-width: 768px) { .filters { grid-template-columns: 1fr; } }
+
+.thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; }

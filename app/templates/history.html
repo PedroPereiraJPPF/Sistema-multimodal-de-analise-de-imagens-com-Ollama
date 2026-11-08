@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Histórico · Analisador de Imagens{% endblock %}
+{% block content %}
+<h2>Histórico</h2>
+
+<form method="get" class="filters">
+  <input type="search" name="q" value="{{ q }}" placeholder="Buscar no resultado (ex.: mercado, 2026-10)">
+  <select name="preset">
+    <option value="">Todos os tipos</option>
+    {% for key, label in presets.items() %}
+    <option value="{{ key }}" {% if key == preset %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <select name="model">
+    <option value="">Todos os modelos</option>
+    {% for m in models %}
+    <option value="{{ m }}" {% if m == model %}selected{% endif %}>{{ m }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filtrar</button>
+</form>
+
+<p><a href="/export.csv">⬇ Exportar tudo em CSV</a></p>
+
+{% if analyses %}
+<div class="overflow-auto">
+<table class="striped">
+  <thead>
+    <tr><th></th><th>Imagem</th><th>Tipo</th><th>Modelo</th><th>Data</th><th>Tempo</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    {% for a in analyses %}
+    <tr>
+      <td><img class="thumb" src="/uploads/{{ a.image_file }}" alt="" loading="lazy"></td>
+      <td><a href="/runs/{{ a.run_id }}#analysis-{{ a.id }}">{{ a.image_name }}</a></td>
+      <td>{{ preset_label(a.preset) }}</td>
+      <td>{{ a.model }}</td>
+      <td>{{ a.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
+      <td>{{ (a.duration_ms / 1000) | round(1) }} s</td>
+      <td>
+        {% if a.error %}❌ erro{% elif a.corrected %}✅ revisado{% else %}🕓 não revisado{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p>Nenhuma análise encontrada.</p>
+{% endif %}
+{% endblock %}
