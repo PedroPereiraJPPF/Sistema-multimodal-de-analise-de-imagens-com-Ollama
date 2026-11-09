@@ -1,8 +1,18 @@
 # 🔎 Analisador de Imagens
 
+> 🧪 **Projeto pessoal de estudo.** Este repositório é um laboratório para **testar LLMs rodando localmente** e praticar **engenharia de prompt** de forma mensurável. Não é um produto: o objetivo é experimentar modelos pequenos, mudar prompts e **medir** o efeito de cada mudança.
+
 Sistema **multimodal** que analisa fotos e documentos com um modelo de visão rodando **localmente** no [Ollama](https://ollama.com), retorna **JSON validado** com campos definidos pelo sistema e mede a **qualidade** dos modelos a partir da **revisão humana**.
 
 Feito para rodar em hardware doméstico: desenvolvido e testado em uma **RTX 3050 com 6 GB de VRAM**.
+
+## Por que este projeto existe
+
+Quis responder, na prática, a algumas perguntas:
+
+- **Até onde vai um modelo de visão de 4B rodando em casa?** Sem API paga, sem nuvem — só Ollama e uma GPU de entrada.
+- **Quanto um prompt bem escrito muda o resultado?** Cada versão do prompt é registrada, comparada num benchmark com gabarito e documentada em [`PROMPT_CHANGELOG.md`](PROMPT_CHANGELOG.md).
+- **Como avaliar um LLM de forma objetiva?** Precisão por campo, item a item, a partir de gabaritos e de revisão humana, em vez de "parece bom".
 
 ## Resultados
 
@@ -126,6 +136,8 @@ curl "http://localhost:8000/api/analyses?q=mercado&preset=receipt"
 A documentação interativa (OpenAPI) fica em `http://localhost:8000/docs`.
 
 ## Engenharia de prompt
+
+Este é o coração do projeto: o app e o benchmark existem para que cada ideia de prompt possa ser **testada e medida**, não só intuída.
 
 O prompt foi pensado para **modelos pequenos e quantizados**, que seguem bem instruções curtas e objetivas e erram quando precisam "raciocinar" sobre formato. Ver [`app/prompts.py`](app/prompts.py).
 
