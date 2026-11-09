@@ -1,0 +1,125 @@
+{
+  "restaurant_name": "Sabores do Brasil",
+  "items": [
+    {
+      "name": "Batidas de Pinga",
+      "description": null,
+      "price": 22,
+      "category": "Batidas"
+    },
+    {
+      "name": "Batidas de Vodka",
+      "description": null,
+      "price": 25,
+      "category": "Batidas"
+    },
+    {
+      "name": "Batida Tropical Pinga",
+      "description": null,
+      "price": 27,
+      "category": "Batidas"
+    },
+    {
+      "name": "Batida Tropical Vodka",
+      "description": null,
+      "price": 31,
+      "category": "Batidas"
+    },
+    {
+      "name": "Batida de Absolut",
+      "description": null,
+      "price": 32,
+      "category": "Batidas"
+    },
+    {
+      "name": "Batida Tropical Absolut",
+      "description": null,
+      "price": 36,
+      "category": "Batidas"
+    },
+    {
+      "name": "Espanhola",
+      "description": null,
+      "price": 25,
+      "category": "Batidas"
+    },
+    {
+      "name": "Portuguesa",
+      "description": null,
+      "price": 25,
+      "category": "Batidas"
+    },
+    {
+      "name": "Caipirinha",
+      "description": null,
+      "price": 21,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Caipirinha Tropical",
+      "description": null,
+      "price": 25,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Caipiroska",
+      "description": null,
+      "price": 25,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Caipiroska Tropical",
+      "description": null,
+      "price": 30,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Caipiroska de Absolut",
+      "description": null,
+      "price": 33,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Caipiroska Tropical de Absolut",
+      "description": null,
+      "price": 37,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Saquerita",
+      "description": null,
+      "price": 28,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Saquerita Tropical",
+      "description": null,
+      "price": 30,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Coquetel Tropical",
+      "description": "sem álcool",
+      "price": 23,
+      "category": "Caipirinhas/Caipiroskas/Saqueritas (375ml)"
+    },
+    {
+      "name": "Caipirinha",
+      "description": null,
+      "price": 28,
+      "category": "Caipirinhas/Caipiroskas Especiais (375ml)"
+    },
+    {
+      "name": "Caipiroska",
+      "description": null,
+      "price": 32,
+      "category": "Caipirinhas/Caipiroskas Especiais (375ml)"
+    },
+    {
+      "name": "Saquerita",
+      "description": null,
+      "price": 32,
+      "category": "Saqueritas Especiais (375ml)"
+    }
+  ]
+}

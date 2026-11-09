@@ -47,9 +47,13 @@ def _same(a: Any, b: Any) -> bool:
 
 
 def _identity(item: Any) -> str:
-    """The value that identifies a list item: its first field, or the item itself."""
+    """The value that identifies a list item: its first filled field, or the item itself.
+
+    Usually the first field is the name. When it is null (a dish printed with only
+    a description), the next filled field identifies the item instead.
+    """
     if isinstance(item, dict):
-        item = next(iter(item.values()), None)
+        item = next((value for value in item.values() if value not in (None, "", [])), None)
     return str(_normalize(item) or "")
 
 

@@ -1,0 +1,11 @@
+{
+  "restaurant_name": "Casa de Mainha",
+  "items": [
+    {"name": null, "description": "Ravioli recheado com carne temperada e macia, servido com um molho cremoso de cogumelos e finalizado com ervas frescas.", "price": 32.9, "category": null},
+    {"name": null, "description": "Filé de frango grelhado acompanhado de arroz branco, feijão caseiro e salada", "price": 35.9, "category": null},
+    {"name": null, "description": "Strogonoff de carne servido com arroz soltinho, caldinho de feijão, batata frita crocante, pão círio e maionese de ervas", "price": 32.9, "category": null},
+    {"name": null, "description": "Massa recheada com ricota e espinafre, coberta com molho branco cremoso e toque de noz-moscada", "price": 32.9, "category": null},
+    {"name": null, "description": "Bife de alcatra suculento coberto com ovo frito, servido com arroz soltinho, feijão temperado, batata frita", "price": 35.9, "category": null},
+    {"name": null, "description": "Filé de peixe empanado e frito, acompanhado de arroz, feijão preto, farofa crocante, vinagrete e fatias de laranja.", "price": 35.9, "category": null}
+  ]
+}

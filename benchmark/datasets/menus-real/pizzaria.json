@@ -1,0 +1,65 @@
+{
+  "restaurant_name": null,
+  "items": [
+    {
+      "name": "Margherita",
+      "description": "Malho de tomate artesanal, muçarela, rodelas de fomate e manjerlçao fresço",
+      "price": 29.9,
+      "category": "Tradicionais"
+    },
+    {
+      "name": "Calabresa",
+      "description": "Calabresa fatiada, cebola rosa, muçarela e orégano",
+      "price": 32.9,
+      "category": "Tradicionais"
+    },
+    {
+      "name": "Portuguesa",
+      "description": "Presunto, ovos, cebola pimentao, ervilha, muçarela e azationas",
+      "price": 34.9,
+      "category": "Tradicionais"
+    },
+    {
+      "name": "Quatro Quejos",
+      "description": "Muçarela, provolone, gorgonzola e catupiry",
+      "price": 36.9,
+      "category": "Especiais"
+    },
+    {
+      "name": "Frango com Catupiry",
+      "description": "Frango destiado, catupiry cremoso e oregano",
+      "price": 39.9,
+      "category": "Especiais"
+    },
+    {
+      "name": "Pepperoni Lovers",
+      "description": "Pepperoni croçante, muçarela e toque de parmesao",
+      "price": null,
+      "category": "Especiais"
+    },
+    {
+      "name": "Romou e Julieta",
+      "description": "Muçarela, golabada cremosa e raspaa de parmesao",
+      "price": null,
+      "category": "Doces"
+    },
+    {
+      "name": "Chocolate com Morango",
+      "description": "Choçolate ao leite derretido, morangos fresços e leite condensado",
+      "price": null,
+      "category": "Doces"
+    },
+    {
+      "name": "Borda recheada",
+      "description": "teafupiry, cheddar ou",
+      "price": 7,
+      "category": "Extras & Bordas"
+    },
+    {
+      "name": "Adicionais",
+      "description": "cada",
+      "price": 5,
+      "category": "Extras & Bordas"
+    }
+  ]
+}

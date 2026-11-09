@@ -69,14 +69,30 @@ class Inventory(BaseModel):
 
 
 class MenuItem(BaseModel):
-    name: str | None = Field(None, description="Dish or drink name as printed")
-    description: str | None = Field(None, description="Description printed under the name; null if none")
-    price: float | None = Field(None, description="Price as a number (R$ 32,90 becomes 32.9)")
-    category: str | None = Field(None, description="Menu section heading the item is listed under, e.g. Pizzas")
+    name: str | None = Field(
+        None,
+        description="Short dish or drink title as printed, e.g. Feijoada Completa. Only the title: "
+                    "never include the description. If the item has no title, use null; "
+                    "never use the description as the name")
+    description: str | None = Field(
+        None,
+        description="Text printed under or after the title (ingredients, side dishes), "
+                    "without surrounding parentheses; null if none")
+    price: float | None = Field(
+        None,
+        description="Price printed next to this item, as a number (R$ 32,90 becomes 32.9). "
+                    "null if this item has no price of its own; never copy a nearby item's price")
+    category: str | None = Field(
+        None,
+        description="Section heading the item is listed under, e.g. Pizzas. "
+                    "null if the menu has no section headings; never repeat the item name")
 
 
 class Menu(BaseModel):
-    restaurant_name: str | None = Field(None, description="Restaurant name")
+    restaurant_name: str | None = Field(
+        None,
+        description="Restaurant name, usually in the logo. Words like Cardápio or Menu are not "
+                    "a restaurant name; null if no name is shown")
     items: list[MenuItem] = Field(default_factory=list, description="Every dish and drink on the menu, in order")
 
 

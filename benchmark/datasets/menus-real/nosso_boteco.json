@@ -1,0 +1,9 @@
+{
+  "restaurant_name": "Nosso Boteco",
+  "items": [
+    {"name": "Chapa Mista", "description": null, "price": 20, "category": null},
+    {"name": "Carne na Chapa", "description": null, "price": 15, "category": null},
+    {"name": "Chapa Mista com ovo de codorna", "description": null, "price": 25, "category": null},
+    {"name": "Frango na chapa", "description": null, "price": 15, "category": null}
+  ]
+}

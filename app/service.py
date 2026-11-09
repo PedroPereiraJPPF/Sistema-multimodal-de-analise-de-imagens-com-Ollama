@@ -1,6 +1,7 @@
 """Use cases shared by the web UI and the JSON API."""
 
 import base64
+import json
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from uuid import uuid4
@@ -29,6 +30,29 @@ class Extraction:
     output_tokens: int = 0
 
 
+NULL_WORDS = {"null", "none"}
+
+
+def _clean_nulls(value):
+    """Turn the text "null" into a real null: small models sometimes quote it."""
+    if isinstance(value, str) and value.strip().casefold() in NULL_WORDS:
+        return None
+    if isinstance(value, list):
+        return [_clean_nulls(item) for item in value]
+    if isinstance(value, dict):
+        return {key: _clean_nulls(item) for key, item in value.items()}
+    return value
+
+
+def _parse(preset: Preset, content: str) -> dict:
+    try:
+        data = _clean_nulls(json.loads(content))
+    except json.JSONDecodeError:
+        data = content  # let Pydantic report the malformed JSON as a schema error
+    validate = preset.schema.model_validate_json if isinstance(data, str) else preset.schema.model_validate
+    return validate(data).model_dump(mode="json")
+
+
 async def extract(preset: Preset, model: str, jpeg: bytes, context: str = "") -> Extraction:
     """Prompt the model, then validate its answer against the preset schema.
 
@@ -48,7 +72,7 @@ async def extract(preset: Preset, model: str, jpeg: bytes, context: str = "") ->
         output_tokens=reply.output_tokens,
     )
     try:
-        extraction.result = preset.schema.model_validate_json(reply.content).model_dump(mode="json")
+        extraction.result = _parse(preset, reply.content)
     except ValidationError as exc:
         extraction.error = f"Resposta fora do schema ({exc.error_count()} erro(s)): {exc}"
     return extraction

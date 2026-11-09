@@ -5,3 +5,12 @@ __pycache__/
 .env
 data/
 .impeccable/
+
+# Third-party menu photos: keep only the ground-truth .json under version control.
+benchmark/datasets/menus-real/*
+!benchmark/datasets/menus-real/*.json
+
+# Per-run benchmark reports stay local (real-menu runs hold third-party transcriptions).
+# history.md, the one-line-per-run summary, stays versioned.
+benchmark/results/*
+!benchmark/results/history.md

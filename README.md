@@ -16,16 +16,30 @@ Quis responder, na prática, a algumas perguntas:
 
 ## Resultados
 
-Benchmark de **extração de cardápios** (foto → catálogo com pratos, descrições, preços e seções), 12 imagens com gabarito, `qwen3.5:4b` local:
+Benchmark de **extração de cardápios** (foto → catálogo com pratos, descrições, preços e seções), com gabarito, tudo rodando localmente.
+
+**Dataset sintético** (12 imagens), `qwen3.5:4b`:
 
 | Prompt | Precisão geral | `items.description` | `items.price` | JSON válido | Inferência média |
 |---|---|---|---|---|---|
 | v1 | 88% | 36% | 100% | 100% | 10,2 s |
 | **v2** | **100%** | **100%** | 100% | 100% | 12,6 s |
 
-A avaliação apontou o problema (o modelo **nunca** preenchia a descrição), a análise dos erros sugeriu a causa (os campos dos itens não estavam explicados no prompt) e o benchmark confirmou a correção. A história completa está em [`PROMPT_CHANGELOG.md`](PROMPT_CHANGELOG.md).
+A avaliação apontou o problema (o modelo **nunca** preenchia a descrição), a análise dos erros sugeriu a causa (os campos dos itens não estavam explicados no prompt) e o benchmark confirmou a correção.
 
-> ⚠️ O dataset atual é **sintético** (gerado com gabarito conhecido) e, depois da v2, ficou fácil demais para o modelo. O próximo passo é ampliar com fotos reais de cardápios, rotuladas pela tela de revisão (veja [Benchmark com gabarito](#benchmark-com-gabarito)).
+**Cardápios reais** (6 imagens de terceiros: fotos de celular, fontes decorativas, duas colunas, pratos sem nome, vários preços por item). No sintético, a v2 já estava em 100% e não diferenciava mais versões de prompt; nos reais, ela cai para cerca de 70%:
+
+| Modelo | v2 (3 imagens) | v3 (3 imagens) | v3 (6 imagens)¹ |
+|---|---|---|---|
+| `qwen3.5:4b` | 75% | **88%** | **87%** |
+| `gemma3:4b` | 73% | 79% | 79% |
+| `qwen2.5vl:3b` | 66% | 74% | 78% |
+
+¹ Com gabarito de transcrição literal e a normalização de `"null"` na validação.
+
+A **v4 foi testada e descartada**: das três regras novas, uma ajudou, uma foi ignorada e uma piorou um dos modelos. A história completa de cada versão, inclusive a que não deu certo, está em [`PROMPT_CHANGELOG.md`](PROMPT_CHANGELOG.md).
+
+> ⚠️ Com 6 imagens, um único campo errado move a média em cerca de 3 pontos. O dataset real ainda é pequeno para separar diferenças dessa ordem.
 
 ```
 foto ──► normalização ──► prompt + JSON Schema ──► Ollama (visão) ──► validação ──► PostgreSQL
@@ -46,17 +60,64 @@ foto ──► normalização ──► prompt + JSON Schema ──► Ollama (v
 | **Histórico e relatórios** | Busca textual nos resultados, filtros por tipo e modelo, exportação CSV (abre direto no Excel). |
 | **API JSON** | Os mesmos recursos via HTTP, para automações e scripts. |
 
-## Stack
+## Visão técnica
 
-| Camada | Tecnologia |
+### O que foi construído
+
+1. **Pipeline de extração multimodal.** A imagem é normalizada (Pillow: correção de orientação EXIF, redimensionamento para no máximo 1024 px, conversão para JPEG) e enviada em base64 ao endpoint `/api/chat` do Ollama, junto com o system prompt, o prompt da tarefa e o JSON Schema do resultado esperado.
+2. **Schemas como fonte única da verdade.** Cada tipo de análise é um modelo Pydantic. Dele saem a lista de campos descrita no prompt, o JSON Schema usado na decodificação restrita e a validação da resposta. Campos personalizados geram um modelo Pydantic dinâmico (`create_model`) em tempo de execução.
+3. **Validação em duas camadas.** O Ollama restringe a geração ao schema; depois, a resposta passa por uma normalização (o texto `"null"` vira `null`) e pela validação Pydantic. Resposta fora do schema é gravada como inválida e entra na métrica, em vez de ser descartada.
+4. **Persistência e revisão humana.** Cada análise grava modelo, versão do prompt, resposta bruta, resultado validado, tempo de inferência, tempo de carga na VRAM e tokens. A tela de revisão compara a correção humana com a resposta e calcula a precisão por campo.
+5. **Benchmark offline com gabarito.** Um runner reutiliza exatamente a mesma função de extração do app, roda N modelos sobre um dataset rotulado, gera relatórios por campo e por imagem e acrescenta uma linha ao histórico de versões.
+6. **Geração de dados sintéticos.** Cardápios desenhados com Pillow a partir de dados aleatórios com semente fixa, com variação de layout, fonte, formato de preço, rotação e desfoque. O gabarito é conhecido por construção.
+7. **Ciclo de engenharia de prompt.** Toda mudança de prompt incrementa `PROMPT_VERSION`, é medida nos dois datasets (sintético e real) e só é aceita se melhorar. Versões descartadas também ficam registradas.
+
+### Conceitos aplicados
+
+| Conceito | Onde aparece |
 |---|---|
-| Backend | Python 3.12 + FastAPI |
-| IA multimodal | Ollama (rodando no host, com GPU) |
-| Modelo padrão | `qwen3.5:4b` (Q4_K_M, ~3,1 GB na VRAM) |
-| Banco de dados | PostgreSQL 16 (SQLite quando roda sem Docker) |
-| Interface | Templates Jinja2 + [Pico CSS](https://picocss.com) — sem build de frontend |
-| Infraestrutura | Docker Compose |
-| Testes | Pytest |
+| **Modelos de visão e linguagem (VLM)** | Um único modelo lê a imagem e gera texto estruturado, sem OCR separado |
+| **Quantização (Q4_K_M)** | Modelos de 3B a 4B parâmetros com pesos em 4 bits, cerca de 3 GB de VRAM |
+| **Decodificação restrita / saída estruturada** | O JSON Schema passado no `format` do Ollama limita os tokens que o modelo pode gerar |
+| **Engenharia de prompt** | Papel e regras numeradas, tarefa específica por tipo, campos descritos, permissão explícita para `null`, transcrever em vez de converter |
+| **Mitigação de prompt injection** | Texto do usuário isolado em tags (`<question>`, `<context>`) e declarado como informação, não como instrução |
+| **Inferência determinística** | `temperature: 0`, para que a diferença entre duas execuções venha do prompt ou do modelo, não do sorteio |
+| **Gestão de memória da GPU** | `num_ctx` pequeno (KV cache menor), `keep_alive`, uma inferência por vez com `asyncio.Lock`, `think: false` |
+| **Avaliação com gabarito** | Precisão por campo, com normalização de diferenças cosméticas (maiúsculas, espaços, `10` vs `10.0`) |
+| **Pareamento aproximado de listas** | Itens previstos e esperados pareados por similaridade de texto (`difflib.SequenceMatcher`, limiar 0,8), independente da ordem |
+| **F1 de detecção** | Para listas: o modelo encontrou os itens certos sem inventar extras? |
+| **Human-in-the-loop** | Correções na tela de revisão viram métrica de produção e podem ser exportadas como novo dataset rotulado |
+| **Versionamento de prompt e ablação** | Cada versão medida contra a anterior; mudanças que não ajudam são descartadas, mesmo quando parecem boas |
+| **Dados sintéticos** | Gabarito gratuito e reprodutível para começar a medir antes de ter dados reais |
+
+### IAs utilizadas
+
+Todos os modelos rodam **localmente** pelo [Ollama](https://ollama.com), sem API paga nem envio de imagens para a nuvem:
+
+| Modelo | Família | Parâmetros | Papel no projeto |
+|---|---|---|---|
+| `qwen3.5:4b` | Qwen 3.5 (Alibaba) | 4B | Modelo padrão; o melhor nos benchmarks |
+| `gemma3:4b` | Gemma 3 (Google) | 4B | Comparação |
+| `qwen2.5vl:3b` | Qwen 2.5-VL (Alibaba) | 3B | Comparação; o mais rápido e o mais fiel na transcrição literal |
+
+O desenvolvimento do código, dos experimentos e da documentação foi feito com apoio do [Claude Code](https://claude.com/claude-code) (Anthropic) como assistente de programação.
+
+### Bibliotecas e ferramentas
+
+| Camada | Tecnologia | Uso |
+|---|---|---|
+| Linguagem | Python 3.12 | |
+| API e web | [FastAPI](https://fastapi.tiangolo.com) + Uvicorn | Rotas da interface web e da API JSON, documentação OpenAPI automática |
+| Validação | [Pydantic](https://docs.pydantic.dev) + pydantic-settings | Schemas das análises, validação das respostas, configuração por variáveis de ambiente |
+| Cliente HTTP | [httpx](https://www.python-httpx.org) (assíncrono) | Chamadas ao Ollama |
+| Imagens | [Pillow](https://python-pillow.org) | Normalização das fotos e geração dos cardápios sintéticos |
+| Banco de dados | [SQLAlchemy](https://www.sqlalchemy.org) 2 + psycopg 3 | PostgreSQL 16 no Docker; SQLite quando roda sem Docker |
+| Interface | Jinja2 + [Pico CSS](https://picocss.com) | Páginas renderizadas no servidor, sem build de frontend |
+| Upload | python-multipart | Formulários com imagem |
+| Inferência | [Ollama](https://ollama.com) | Servidor de modelos local, rodando no host com acesso à GPU |
+| Infraestrutura | Docker Compose | App + PostgreSQL; o container acessa o Ollama do host por `host.docker.internal` |
+| Testes | Pytest + `TestClient` do FastAPI | Chamada ao modelo substituída por resposta fixa, testes sem GPU |
+| Biblioteca padrão | `difflib`, `statistics`, `asyncio` | Pareamento de itens, métricas, fila de inferência |
 
 ## Como rodar
 
@@ -218,7 +279,9 @@ docker compose run --rm app python -m benchmark.export_reviewed --preset menu \
     --out benchmark/datasets/menus-real
 ```
 
-Cada execução grava em [`benchmark/results/`](benchmark/results/) um relatório Markdown (resumo, precisão por campo, precisão por imagem), o JSON bruto com todas as respostas e uma linha por modelo em [`history.md`](benchmark/results/history.md), que é o histórico de evolução entre versões do prompt.
+Cada execução grava em `benchmark/results/` um relatório Markdown (resumo, precisão por campo, precisão por imagem), o JSON bruto com todas as respostas e uma linha por modelo em [`history.md`](benchmark/results/history.md), que é o histórico de evolução entre versões do prompt. Só o `history.md` é versionado; os relatórios ficam locais.
+
+O dataset `menus-real` usa imagens de cardápios de terceiros: apenas os gabaritos `.json` estão no repositório. Os gabaritos seguem **transcrição literal**, inclusive erros impressos na imagem, porque é isso que o prompt pede ao modelo.
 
 **Ciclo de melhoria:** fotografe → analise → revise no app → `export_reviewed` → mude o prompt e incremente `PROMPT_VERSION` → `benchmark.run` → compare no `history.md` → registre no `PROMPT_CHANGELOG.md`.
 
@@ -281,6 +344,7 @@ Modelos de 7B+ com visão tendem a não caber inteiros na VRAM e ficam bem mais 
 
 - PDFs ainda não são aceitos diretamente — fotografe ou exporte a página como imagem.
 - As análises rodam de forma síncrona; com muitos usuários simultâneos valeria uma fila de tarefas.
-- Dataset de cardápios reais: o sintético já não diferencia versões do prompt (100%).
-- Comparar outros modelos de visão (`gemma3:4b`, `qwen2.5vl:3b`) no mesmo benchmark.
+- Ampliar o dataset de cardápios reais: com 6 imagens, diferenças de até ~3 pontos ainda são ruído.
+- Prato impresso sem nome (só descrição): todos os modelos usam a descrição como nome, mesmo com regra explícita. Próximo teste: exemplo no prompt (few-shot) ou `description` antes de `name` no schema.
+- Vários preços por item (Broto/Média/Grande): o schema só tem um `price`.
 - Migrações com Alembic se o modelo de dados crescer (hoje há uma migração mínima em `db.py`).

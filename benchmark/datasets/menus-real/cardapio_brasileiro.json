@@ -1,0 +1,95 @@
+{
+  "restaurant_name": null,
+  "items": [
+    {
+      "name": "Bolinho de Aipim com Carne Seca",
+      "description": null,
+      "price": 18,
+      "category": "Entradas"
+    },
+    {
+      "name": "Caldo de Feijão",
+      "description": null,
+      "price": 14,
+      "category": "Entradas"
+    },
+    {
+      "name": "Salada Tropical",
+      "description": "aljàce, rucula, mangá, castanhas",
+      "price": 22,
+      "category": "Entradas"
+    },
+    {
+      "name": "Feijoada Completa",
+      "description": "acompanha arroz, farofa, couve e faranja",
+      "price": 42,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Moqueca de Peixe",
+      "description": "com arroz e pirão",
+      "price": 48,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Picanha na Chapa",
+      "description": "com arroz, batata frita e vinagretè",
+      "price": 56,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Strogonoff de Frango",
+      "description": "arroz branco e batata paiha",
+      "price": 36,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Mini Strogonoff",
+      "description": "com Arroz e Batata Palha",
+      "price": 22,
+      "category": "Prato Infantil"
+    },
+    {
+      "name": "File de Frango Grelhado",
+      "description": "com Puré",
+      "price": 20,
+      "category": "Prato Infantil"
+    },
+    {
+      "name": "Pudim de Leite Condensado",
+      "description": null,
+      "price": 12,
+      "category": "Sobremesas"
+    },
+    {
+      "name": "Mousse de Maracujá",
+      "description": null,
+      "price": null,
+      "category": "Sobremesas"
+    },
+    {
+      "name": "Refrigerante Lata",
+      "description": null,
+      "price": 6,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Suco Natural",
+      "description": null,
+      "price": null,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Água Mineral",
+      "description": null,
+      "price": null,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Cerveja Long Neck",
+      "description": null,
+      "price": 9,
+      "category": "Bebidas"
+    }
+  ]
+}

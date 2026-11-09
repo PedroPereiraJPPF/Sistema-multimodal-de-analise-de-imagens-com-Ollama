@@ -19,7 +19,7 @@ from app.presets import Preset
 # Bump on every change to the prompt text or its construction, and log it in
 # PROMPT_CHANGELOG.md. Each analysis stores the version that produced it, so
 # metrics can be compared across prompt iterations.
-PROMPT_VERSION = "v2"
+PROMPT_VERSION = "v3"
 
 SYSTEM_PROMPT = """\
 You are a meticulous visual data extraction assistant.

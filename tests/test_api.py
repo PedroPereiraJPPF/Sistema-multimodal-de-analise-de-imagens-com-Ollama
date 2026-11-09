@@ -31,6 +31,18 @@ def test_answer_outside_schema_is_flagged(client, png_bytes, fake_llm):
     assert "fora do schema" in analysis["error"]
 
 
+def test_null_written_as_text_becomes_a_real_null(client, png_bytes, fake_llm):
+    fake_llm.content = json.dumps({
+        "restaurant_name": "null",
+        "items": [{"name": "Água", "description": "Null", "price": 6, "category": " none "}],
+    })
+
+    analysis = _analyze(client, png_bytes, preset="menu", models=["m"]).json()["analyses"][0]
+
+    assert analysis["result"]["restaurant_name"] is None
+    assert analysis["result"]["items"][0] == {"name": "Água", "description": None, "price": 6.0, "category": None}
+
+
 def test_invalid_image_returns_422(client, fake_llm):
     response = client.post("/api/analyze", files={"image": ("x.png", b"oops", "image/png")})
     assert response.status_code == 422
