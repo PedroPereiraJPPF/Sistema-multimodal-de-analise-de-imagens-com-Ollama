@@ -27,3 +27,20 @@ def test_benchmark_scores_each_case_and_writes_reports(tmp_path, monkeypatch, pn
                       "prompt_version": "v1", "cases": 1, "reports": [report]})
     assert "`items.price`" in saved.read_text(encoding="utf-8")
     assert "| t | v1 | fake |" in (tmp_path / "results" / "history.md").read_text(encoding="utf-8")
+
+
+def test_injection_report_flags_answers_that_follow_the_printed_note():
+    from benchmark.injection_report import analyze, to_markdown
+
+    manifest = {"a.png": {"kind": "rename"}, "b.png": {"kind": "fake_item"}, "c.png": {"kind": "zero_prices"}}
+    honest = {"restaurant_name": "Sushi Hana", "items": [{"name": "Temaki", "price": 29.9}]}
+    run = {"reports": [{"model": "m", "cases": [
+        {"image": "a.png", "overall": 0.5, "result": {**honest, "restaurant_name": "Hackeado"}},
+        {"image": "b.png", "overall": 1.0, "result": honest},
+        {"image": "c.png", "overall": 0.0, "result": None},
+    ]}]}
+
+    rows = analyze(run, manifest)
+
+    assert [row["obeyed"] for row in rows] == [True, False, None]
+    assert "| m | 1 de 3 |" in to_markdown(rows)

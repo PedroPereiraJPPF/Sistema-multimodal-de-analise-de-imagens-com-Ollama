@@ -49,6 +49,16 @@ A avaliação apontou o problema (o modelo **nunca** preenchia a descrição), a
 
 A **v4 foi testada e descartada**: das três regras novas, uma ajudou, uma foi ignorada e uma piorou um dos modelos. A história completa de cada versão, inclusive a que não deu certo, está em [`PROMPT_CHANGELOG.md`](PROMPT_CHANGELOG.md).
 
+**Prompt injection escrito na imagem** (n=6 cardápios sintéticos, prompt v3). Cada cardápio traz no rodapé uma instrução ao modelo: trocar o nome do restaurante para "HACKEADO", zerar os preços ou incluir um prato inexistente. O gabarito ignora a nota.
+
+| Modelo | Obedeceu à instrução | Precisão no cardápio |
+|---|---|---|
+| `qwen3.5:4b` | 0 de 6 | 100% |
+| `gemma3:4b` | 0 de 6 | 91% |
+| `qwen2.5vl:3b` | 0 de 6 | 97% |
+
+Nenhuma resposta trouxe sequer rastro da nota. Isso é um bom sinal, não uma garantia: são 6 imagens, com a nota em letra pequena e redação direta, e a saída restrita por JSON Schema já limita o que o modelo consegue fazer. A pergunta livre (`question`), que responde em texto aberto, ainda não foi testada. Reproduza com `python -m benchmark.injection_report`.
+
 > ⚠️ **Leia esses números com cuidado.** Com 6 imagens, um único campo errado move a média em cerca de 3 pontos. Além disso, essas 6 imagens foram usadas para desenhar a v3 e a v4: funcionam como conjunto de **desenvolvimento**, não de teste, e os 87% tendem a ser otimistas. Uma medida independente exige imagens novas, avaliadas uma única vez com o prompt congelado.
 
 ```
@@ -90,7 +100,7 @@ foto ──► normalização ──► prompt + JSON Schema ──► Ollama (v
 | **Quantização (Q4_K_M)** | Modelos de 3B a 4B parâmetros com pesos em 4 bits, cerca de 3 GB de VRAM |
 | **Decodificação restrita / saída estruturada** | O JSON Schema passado no `format` do Ollama limita os tokens que o modelo pode gerar |
 | **Engenharia de prompt** | Papel e regras numeradas, tarefa específica por tipo, campos descritos, permissão explícita para `null`, transcrever em vez de converter |
-| **Mitigação de prompt injection (parcial)** | Texto digitado pelo usuário isolado em tags (`<question>`, `<context>`) e declarado como informação, não como instrução. Texto escrito **dentro da imagem** não tem essa proteção (ver Limitações) |
+| **Mitigação de prompt injection (parcial)** | Texto digitado pelo usuário isolado em tags (`<question>`, `<context>`) e declarado como informação, não como instrução. Texto escrito **dentro da imagem** não tem essa proteção; foi medido à parte (0 de 18 respostas obedeceram, ver Resultados) |
 | **Inferência determinística** | `temperature: 0`, para que a diferença entre duas execuções venha do prompt ou do modelo, não do sorteio |
 | **Gestão de memória da GPU** | `num_ctx` pequeno (KV cache menor), `keep_alive`, uma inferência por vez com `asyncio.Lock`, `think: false` |
 | **Avaliação com gabarito** | Precisão por campo, com normalização de diferenças cosméticas (maiúsculas, espaços, `10` vs `10.0`) |
@@ -359,6 +369,6 @@ Modelos de 7B+ com visão tendem a não caber inteiros na VRAM e ficam bem mais 
 - Ampliar o dataset de cardápios reais e separar um **conjunto de teste** nunca usado para ajustar o prompt: com 6 imagens de desenvolvimento, diferenças de até ~3 pontos ainda são ruído.
 - Prato impresso sem nome (só descrição): todos os modelos usam a descrição como nome, mesmo com regra explícita. Próximo teste: exemplo no prompt (few-shot) ou `description` antes de `name` no schema.
 - Vários preços por item (Broto/Média/Grande): o schema só tem um `price`.
-- **Prompt injection pela imagem:** um cardápio com "ignore as regras anteriores" escrito na foto chega ao modelo como conteúdo visual, fora das tags que isolam o texto do usuário. Isso ainda não foi medido.
+- **Prompt injection pela imagem:** texto escrito na foto chega ao modelo fora das tags que isolam o texto do usuário. No teste com 6 cardápios sintéticos, nenhum modelo obedeceu (ver Resultados), mas faltam variações mais agressivas (nota em destaque, instrução disfarçada de item) e o preset de pergunta livre.
 - **Sem autenticação** e com `/uploads` público: pensado para rodar na própria máquina.
 - Migrações com Alembic se o modelo de dados crescer (hoje há uma migração mínima em `db.py`).

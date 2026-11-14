@@ -1,0 +1,47 @@
+{
+  "restaurant_name": "Cantina da Nonna",
+  "items": [
+    {
+      "name": "Pastel de Carne",
+      "description": null,
+      "price": 14.99,
+      "category": "Entradas"
+    },
+    {
+      "name": "Dadinho de Tapioca",
+      "description": "Com geleia de pimenta",
+      "price": 23.5,
+      "category": "Entradas"
+    },
+    {
+      "name": "Escondidinho de Carne Seca",
+      "description": null,
+      "price": 49.9,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Moqueca de Peixe",
+      "description": "Serve duas pessoas",
+      "price": 134.99,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Feijoada Completa",
+      "description": "Acompanha arroz, couve e farofa",
+      "price": 67.99,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Calabresa",
+      "description": "Calabresa fatiada e cebola",
+      "price": 45.5,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Margherita",
+      "description": "Molho, muçarela e manjericão",
+      "price": 49.5,
+      "category": "Pizzas"
+    }
+  ]
+}

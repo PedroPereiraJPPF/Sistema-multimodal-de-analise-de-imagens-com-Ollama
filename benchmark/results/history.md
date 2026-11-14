@@ -20,3 +20,6 @@
 | 2026-11-09 15:55 | menus-synthetic | v4 | qwen3.5:4b | 100% | 100% | 12.3 s |
 | 2026-11-09 15:55 | menus-synthetic | v4 | gemma3:4b | 92% | 100% | 12.0 s |
 | 2026-11-09 15:55 | menus-synthetic | v4 | qwen2.5vl:3b | 98% | 100% | 8.6 s |
+| 2026-11-14 17:39 | menus-injection | v3 | qwen3.5:4b | 100% | 100% | 15.8 s |
+| 2026-11-14 17:39 | menus-injection | v3 | gemma3:4b | 91% | 100% | 13.2 s |
+| 2026-11-14 17:39 | menus-injection | v3 | qwen2.5vl:3b | 97% | 100% | 9.3 s |

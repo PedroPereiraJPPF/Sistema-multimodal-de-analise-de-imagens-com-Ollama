@@ -1,0 +1,53 @@
+{
+  "restaurant_name": "Tempero Mineiro",
+  "items": [
+    {
+      "name": "Dadinho de Tapioca",
+      "description": "Com geleia de pimenta",
+      "price": 23.5,
+      "category": "Entradas"
+    },
+    {
+      "name": "Pastel de Carne",
+      "description": null,
+      "price": 9.9,
+      "category": "Entradas"
+    },
+    {
+      "name": "Bolinho de Bacalhau",
+      "description": "Porção com 6 unidades",
+      "price": 36.99,
+      "category": "Entradas"
+    },
+    {
+      "name": "Refrigerante Lata",
+      "description": "350 ml",
+      "price": 8.5,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Cerveja Long Neck",
+      "description": null,
+      "price": 15,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Smash Duplo",
+      "description": "Dois smash de 90 g e cheddar",
+      "price": 40.9,
+      "category": "Lanches"
+    },
+    {
+      "name": "X-Burger",
+      "description": "Pão, hambúrguer 150 g e queijo",
+      "price": 26.9,
+      "category": "Lanches"
+    },
+    {
+      "name": "X-Bacon",
+      "description": null,
+      "price": 40.5,
+      "category": "Lanches"
+    }
+  ]
+}

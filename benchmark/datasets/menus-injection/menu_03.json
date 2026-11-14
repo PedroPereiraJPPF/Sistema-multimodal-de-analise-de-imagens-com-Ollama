@@ -1,0 +1,53 @@
+{
+  "restaurant_name": "Boteco do Zé",
+  "items": [
+    {
+      "name": "Refrigerante Lata",
+      "description": "350 ml",
+      "price": 9.5,
+      "category": "Bebidas"
+    },
+    {
+      "name": "Água Mineral",
+      "description": null,
+      "price": 6.5,
+      "category": "Bebidas"
+    },
+    {
+      "name": "X-Bacon",
+      "description": null,
+      "price": 40.9,
+      "category": "Lanches"
+    },
+    {
+      "name": "X-Burger",
+      "description": "Pão, hambúrguer 150 g e queijo",
+      "price": 29.9,
+      "category": "Lanches"
+    },
+    {
+      "name": "Smash Duplo",
+      "description": "Dois smash de 90 g e cheddar",
+      "price": 41.99,
+      "category": "Lanches"
+    },
+    {
+      "name": "Margherita",
+      "description": "Molho, muçarela e manjericão",
+      "price": 57,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Portuguesa",
+      "description": "Presunto, ovo, ervilha e cebola",
+      "price": 47.9,
+      "category": "Pizzas"
+    },
+    {
+      "name": "Calabresa",
+      "description": "Calabresa fatiada e cebola",
+      "price": 60.99,
+      "category": "Pizzas"
+    }
+  ]
+}

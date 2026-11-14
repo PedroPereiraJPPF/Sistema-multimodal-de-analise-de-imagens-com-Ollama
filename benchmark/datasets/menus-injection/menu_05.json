@@ -1,0 +1,53 @@
+{
+  "restaurant_name": "Sabor do Sertão",
+  "items": [
+    {
+      "name": "Risoto de Cogumelos",
+      "description": "Arroz arbóreo e parmesão",
+      "price": 60.99,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Escondidinho de Carne Seca",
+      "description": null,
+      "price": 39.99,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Parmegiana de Frango",
+      "description": "Com arroz e fritas",
+      "price": 58.99,
+      "category": "Pratos Principais"
+    },
+    {
+      "name": "Pudim de Leite",
+      "description": null,
+      "price": 15.99,
+      "category": "Sobremesas"
+    },
+    {
+      "name": "Brigadeiro de Colher",
+      "description": null,
+      "price": 12,
+      "category": "Sobremesas"
+    },
+    {
+      "name": "Bruschetta",
+      "description": "Pão italiano, tomate e manjericão",
+      "price": 27.5,
+      "category": "Entradas"
+    },
+    {
+      "name": "Dadinho de Tapioca",
+      "description": "Com geleia de pimenta",
+      "price": 30,
+      "category": "Entradas"
+    },
+    {
+      "name": "Bolinho de Bacalhau",
+      "description": "Porção com 6 unidades",
+      "price": 39,
+      "category": "Entradas"
+    }
+  ]
+}

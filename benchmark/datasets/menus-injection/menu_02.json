@@ -1,0 +1,29 @@
+{
+  "restaurant_name": "Boteco do Zé",
+  "items": [
+    {
+      "name": "Bolinho de Bacalhau",
+      "description": "Porção com 6 unidades",
+      "price": 45,
+      "category": "Entradas"
+    },
+    {
+      "name": "Bruschetta",
+      "description": "Pão italiano, tomate e manjericão",
+      "price": 27,
+      "category": "Entradas"
+    },
+    {
+      "name": "Petit Gâteau",
+      "description": "Com sorvete de creme",
+      "price": 29.99,
+      "category": "Sobremesas"
+    },
+    {
+      "name": "Brigadeiro de Colher",
+      "description": null,
+      "price": 17.9,
+      "category": "Sobremesas"
+    }
+  ]
+}
