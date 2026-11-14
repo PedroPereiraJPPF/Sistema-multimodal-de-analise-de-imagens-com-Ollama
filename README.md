@@ -1,6 +1,5 @@
 # 🔎 Analisador de Imagens
 
-[![tests](https://github.com/PedroPereiraJPPF/Sistema-multimodal-de-analise-de-imagens-com-Ollama/actions/workflows/tests.yml/badge.svg)](https://github.com/PedroPereiraJPPF/Sistema-multimodal-de-analise-de-imagens-com-Ollama/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **Em resumo:**
@@ -8,7 +7,7 @@
 - Saída restrita por **JSON Schema** e validada com **Pydantic**; o schema é a fonte única de prompt, decodificação e validação.
 - Cada versão do prompt é **medida com gabarito**, campo a campo: 88% → 100% no dataset sintético (n=12); 87% em cardápios reais (n=6, usados no desenvolvimento do prompt).
 - Uma versão do prompt (v4) foi **testada e descartada**, com o motivo documentado.
-- FastAPI + PostgreSQL + Docker Compose, testes sem GPU rodando no GitHub Actions.
+- FastAPI + PostgreSQL + Docker Compose, testes automatizados com pytest que rodam sem GPU.
 
 **Extração de um cardápio:** a foto à esquerda e, à direita, o JSON validado com pratos e preços, além do modelo usado, do tempo e da versão do prompt. Nome e contato do estabelecimento foram borrados.
 
