@@ -9,7 +9,7 @@
 - Uma versão do prompt (v4) foi **testada e descartada**, com o motivo documentado.
 - FastAPI + PostgreSQL + Docker Compose, testes automatizados com pytest que rodam sem GPU.
 
-**Extração de um cardápio:** a foto à esquerda e, à direita, o JSON validado com pratos e preços, além do modelo usado, do tempo e da versão do prompt. Nome e contato do estabelecimento foram borrados.
+**Extração de um cardápio:** a foto à esquerda e, à direita, o JSON validado com pratos e preços, além do modelo usado, do tempo e da versão do prompt. O cardápio é do dataset sintético do projeto.
 
 ![Resultado da extração de um cardápio: foto à esquerda e JSON com pratos e preços à direita](docs/images/extracao-cardapio.png)
 
