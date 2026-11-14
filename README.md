@@ -1,5 +1,15 @@
 # 🔎 Analisador de Imagens
 
+[![tests](https://github.com/PedroPereiraJPPF/Sistema-multimodal-de-analise-de-imagens-com-Ollama/actions/workflows/tests.yml/badge.svg)](https://github.com/PedroPereiraJPPF/Sistema-multimodal-de-analise-de-imagens-com-Ollama/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+**Em resumo:**
+- Foto de cardápio, nota fiscal ou rótulo → **JSON validado**, com um modelo de visão de 4B rodando **localmente** (Ollama, GPU de 6 GB).
+- Saída restrita por **JSON Schema** e validada com **Pydantic**; o schema é a fonte única de prompt, decodificação e validação.
+- Cada versão do prompt é **medida com gabarito**, campo a campo: 88% → 100% no dataset sintético (n=12); 87% em cardápios reais (n=6, usados no desenvolvimento do prompt).
+- Uma versão do prompt (v4) foi **testada e descartada**, com o motivo documentado.
+- FastAPI + PostgreSQL + Docker Compose, testes sem GPU rodando no GitHub Actions.
+
 > 🧪 **Projeto pessoal de estudo.** Este repositório é um laboratório para **testar LLMs rodando localmente** e praticar **engenharia de prompt** de forma mensurável. Não é um produto: o objetivo é experimentar modelos pequenos, mudar prompts e **medir** o efeito de cada mudança.
 
 Sistema **multimodal** que analisa fotos e documentos com um modelo de visão rodando **localmente** no [Ollama](https://ollama.com), retorna **JSON validado** com campos definidos pelo sistema e mede a **qualidade** dos modelos a partir da **revisão humana**.
@@ -18,7 +28,7 @@ Quis responder, na prática, a algumas perguntas:
 
 Benchmark de **extração de cardápios** (foto → catálogo com pratos, descrições, preços e seções), com gabarito, tudo rodando localmente.
 
-**Dataset sintético** (12 imagens), `qwen3.5:4b`:
+**Dataset sintético** (n=12 imagens), `qwen3.5:4b`:
 
 | Prompt | Precisão geral | `items.description` | `items.price` | JSON válido | Inferência média |
 |---|---|---|---|---|---|
@@ -27,7 +37,7 @@ Benchmark de **extração de cardápios** (foto → catálogo com pratos, descri
 
 A avaliação apontou o problema (o modelo **nunca** preenchia a descrição), a análise dos erros sugeriu a causa (os campos dos itens não estavam explicados no prompt) e o benchmark confirmou a correção.
 
-**Cardápios reais** (6 imagens de terceiros: fotos de celular, fontes decorativas, duas colunas, pratos sem nome, vários preços por item). No sintético, a v2 já estava em 100% e não diferenciava mais versões de prompt; nos reais, ela cai para cerca de 70%:
+**Cardápios reais** (n=6 imagens de terceiros: fotos de celular, fontes decorativas, duas colunas, pratos sem nome, vários preços por item). No sintético, a v2 já estava em 100% e não diferenciava mais versões de prompt; nos reais, ela cai para cerca de 70%:
 
 | Modelo | v2 (3 imagens) | v3 (3 imagens) | v3 (6 imagens)¹ |
 |---|---|---|---|
@@ -39,7 +49,7 @@ A avaliação apontou o problema (o modelo **nunca** preenchia a descrição), a
 
 A **v4 foi testada e descartada**: das três regras novas, uma ajudou, uma foi ignorada e uma piorou um dos modelos. A história completa de cada versão, inclusive a que não deu certo, está em [`PROMPT_CHANGELOG.md`](PROMPT_CHANGELOG.md).
 
-> ⚠️ Com 6 imagens, um único campo errado move a média em cerca de 3 pontos. O dataset real ainda é pequeno para separar diferenças dessa ordem.
+> ⚠️ **Leia esses números com cuidado.** Com 6 imagens, um único campo errado move a média em cerca de 3 pontos. Além disso, essas 6 imagens foram usadas para desenhar a v3 e a v4: funcionam como conjunto de **desenvolvimento**, não de teste, e os 87% tendem a ser otimistas. Uma medida independente exige imagens novas, avaliadas uma única vez com o prompt congelado.
 
 ```
 foto ──► normalização ──► prompt + JSON Schema ──► Ollama (visão) ──► validação ──► PostgreSQL
@@ -80,7 +90,7 @@ foto ──► normalização ──► prompt + JSON Schema ──► Ollama (v
 | **Quantização (Q4_K_M)** | Modelos de 3B a 4B parâmetros com pesos em 4 bits, cerca de 3 GB de VRAM |
 | **Decodificação restrita / saída estruturada** | O JSON Schema passado no `format` do Ollama limita os tokens que o modelo pode gerar |
 | **Engenharia de prompt** | Papel e regras numeradas, tarefa específica por tipo, campos descritos, permissão explícita para `null`, transcrever em vez de converter |
-| **Mitigação de prompt injection** | Texto do usuário isolado em tags (`<question>`, `<context>`) e declarado como informação, não como instrução |
+| **Mitigação de prompt injection (parcial)** | Texto digitado pelo usuário isolado em tags (`<question>`, `<context>`) e declarado como informação, não como instrução. Texto escrito **dentro da imagem** não tem essa proteção (ver Limitações) |
 | **Inferência determinística** | `temperature: 0`, para que a diferença entre duas execuções venha do prompt ou do modelo, não do sorteio |
 | **Gestão de memória da GPU** | `num_ctx` pequeno (KV cache menor), `keep_alive`, uma inferência por vez com `asyncio.Lock`, `think: false` |
 | **Avaliação com gabarito** | Precisão por campo, com normalização de diferenças cosméticas (maiúsculas, espaços, `10` vs `10.0`) |
@@ -152,6 +162,8 @@ uvicorn app.main:app --reload
 ```
 </details>
 
+> 🔒 **Uso local apenas.** O app não tem autenticação: qualquer pessoa que alcance a porta 8000 pode enviar imagens, ver o histórico e abrir `/uploads`, onde as imagens enviadas ficam públicas. Não exponha à internet sem colocar autenticação na frente. Uploads acima de `MAX_UPLOAD_MB` (10 MB) são recusados.
+
 ## Como usar
 
 1. **Nova análise** — envie a imagem, escolha o tipo de extração e os modelos.
@@ -206,7 +218,7 @@ O prompt foi pensado para **modelos pequenos e quantizados**, que seguem bem ins
 - **Uma tarefa específica por tipo** — "extraia os dados desta conta de consumo" em vez de "analise a imagem".
 - **Lista explícita de campos com descrição e formato**, gerada a partir do mesmo modelo Pydantic que valida a resposta (uma única fonte da verdade).
 - **Permissão explícita para `null`** — todos os campos são opcionais; dizer ao modelo que "não sei" é aceitável é a forma mais eficaz de reduzir valores inventados.
-- **Entrada do usuário isolada em tags (`<question>`, `<context>`)** e declarado como informação, não como novas regras (mitiga *prompt injection* acidental).
+- **Entrada do usuário isolada em tags (`<question>`, `<context>`)** e declarado como informação, não como novas regras (mitiga *prompt injection* acidental no texto digitado; não cobre instruções escritas dentro da própria imagem).
 - **Saída restrita por JSON Schema** (`format` do Ollama) + **validação Pydantic** — se ainda assim a resposta não bater com o schema, ela é registrada como inválida e entra na métrica.
 - **`temperature: 0`** — extrações determinísticas e reproduzíveis, essencial para comparar modelos.
 - **Campos de itens de listas também descritos** — cada prato, item de nota ou objeto tem seus campos explicados no prompt (foi o que levou o benchmark de 88% a 100%).
@@ -344,7 +356,9 @@ Modelos de 7B+ com visão tendem a não caber inteiros na VRAM e ficam bem mais 
 
 - PDFs ainda não são aceitos diretamente — fotografe ou exporte a página como imagem.
 - As análises rodam de forma síncrona; com muitos usuários simultâneos valeria uma fila de tarefas.
-- Ampliar o dataset de cardápios reais: com 6 imagens, diferenças de até ~3 pontos ainda são ruído.
+- Ampliar o dataset de cardápios reais e separar um **conjunto de teste** nunca usado para ajustar o prompt: com 6 imagens de desenvolvimento, diferenças de até ~3 pontos ainda são ruído.
 - Prato impresso sem nome (só descrição): todos os modelos usam a descrição como nome, mesmo com regra explícita. Próximo teste: exemplo no prompt (few-shot) ou `description` antes de `name` no schema.
 - Vários preços por item (Broto/Média/Grande): o schema só tem um `price`.
+- **Prompt injection pela imagem:** um cardápio com "ignore as regras anteriores" escrito na foto chega ao modelo como conteúdo visual, fora das tags que isolam o texto do usuário. Isso ainda não foi medido.
+- **Sem autenticação** e com `/uploads` público: pensado para rodar na própria máquina.
 - Migrações com Alembic se o modelo de dados crescer (hoje há uma migração mínima em `db.py`).
