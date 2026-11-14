@@ -20,6 +20,19 @@ def test_prepare_image_rejects_non_images():
         prepare_image(b"not an image", max_side=1024)
 
 
+def test_prepare_image_rejects_truncated_files(png_bytes):
+    # The header is intact, so Image.open succeeds; decoding fails later.
+    with pytest.raises(ValueError):
+        prepare_image(png_bytes[: len(png_bytes) // 2], max_side=1024)
+
+
+def test_prepare_image_rejects_huge_dimensions(png_bytes, monkeypatch):
+    # A small file can declare enormous dimensions (decompression bomb).
+    monkeypatch.setattr("app.images.MAX_PIXELS", 1000)
+    with pytest.raises(ValueError, match="grande"):
+        prepare_image(png_bytes, max_side=1024)
+
+
 def test_parse_custom_fields_normalizes_names():
     assert parse_custom_fields("Placa do carro: placa\n\ncor") == {"placa_do_carro": "placa", "cor": "cor"}
 

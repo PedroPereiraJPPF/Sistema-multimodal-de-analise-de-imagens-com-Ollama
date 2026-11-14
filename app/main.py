@@ -63,12 +63,23 @@ def _to_dict(analysis: Analysis) -> dict[str, Any]:
     }
 
 
+async def _read_limited(upload: UploadFile) -> bytes:
+    """Read the upload, refusing it as soon as it passes the size limit."""
+    limit = settings.max_upload_mb * 1024 * 1024
+    data = await upload.read(limit + 1)
+    if len(data) > limit:
+        raise HTTPException(status_code=413,
+                            detail=f"A imagem passa do limite de {settings.max_upload_mb} MB.")
+    return data
+
+
 async def _run(session: Session, image: UploadFile, preset: str, models: list[str],
                fields: str, context: str) -> str:
+    data = await _read_limited(image)
     try:
         return await service.analyze_image(
             session,
-            image=await image.read(),
+            image=data,
             filename=image.filename or "imagem",
             preset_key=preset,
             models=models or [settings.default_model],

@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     # Vision encoders downscale large images anyway; sending fewer pixels
     # saves upload time, image tokens and VRAM.
     max_image_side: int = 1024
+    # Uploads are read into memory, so reject anything larger than this.
+    max_upload_mb: int = 10
     # A small context window keeps the KV cache small (an image + prompt
     # + JSON answer fits comfortably in 4k tokens).
     num_ctx: int = 4096

@@ -48,6 +48,16 @@ def test_invalid_image_returns_422(client, fake_llm):
     assert response.status_code == 422
 
 
+def test_oversized_upload_returns_413(client, fake_llm, monkeypatch):
+    monkeypatch.setattr("app.main.settings.max_upload_mb", 1)
+    big = b"\0" * (1024 * 1024 + 1)
+
+    response = client.post("/api/analyze", files={"image": ("big.png", big, "image/png")})
+
+    assert response.status_code == 413
+    assert fake_llm.calls == []
+
+
 def test_review_updates_accuracy_metrics(client, png_bytes, fake_llm):
     analysis = _analyze(client, png_bytes, preset="general", models=["m"]).json()["analyses"][0]
     corrected = {**analysis["result"], "people_count": 2}
