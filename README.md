@@ -10,6 +10,16 @@
 - Uma versão do prompt (v4) foi **testada e descartada**, com o motivo documentado.
 - FastAPI + PostgreSQL + Docker Compose, testes sem GPU rodando no GitHub Actions.
 
+**Extração de um cardápio:** a foto à esquerda e, à direita, o JSON validado com pratos e preços, além do modelo usado, do tempo e da versão do prompt. Nome e contato do estabelecimento foram borrados.
+
+![Resultado da extração de um cardápio: foto à esquerda e JSON com pratos e preços à direita](docs/images/extracao-cardapio.png)
+
+<details>
+<summary>Tela inicial: escolha da imagem, do tipo de análise e dos modelos a comparar</summary>
+
+![Tela de nova análise com upload de imagem, tipo de extração, contexto opcional e seleção de modelos](docs/images/tela-inicial.png)
+</details>
+
 > 🧪 **Projeto pessoal de estudo.** Este repositório é um laboratório para **testar LLMs rodando localmente** e praticar **engenharia de prompt** de forma mensurável. Não é um produto: o objetivo é experimentar modelos pequenos, mudar prompts e **medir** o efeito de cada mudança.
 
 Sistema **multimodal** que analisa fotos e documentos com um modelo de visão rodando **localmente** no [Ollama](https://ollama.com), retorna **JSON validado** com campos definidos pelo sistema e mede a **qualidade** dos modelos a partir da **revisão humana**.
